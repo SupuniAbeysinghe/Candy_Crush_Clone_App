@@ -1,9 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useAppDispatch, useAppSelector } from './store/hooks'
+import { updateBoard } from './store';
+import { createBoard } from './utils/createBoard';
+import Board from './components/Board';
 
 function App() {
-  return (
-    <div>
 
+  const dispatch = useAppDispatch();
+
+  const board = useAppSelector(({ candyCrush: { board } }) => board);
+
+  const boardSize = useAppSelector(({ candyCrush: { boardSize } }) => boardSize);
+
+  useEffect(() => {
+    dispatch(updateBoard(createBoard(boardSize)));
+  }, [boardSize, dispatch]);
+
+
+
+
+  return (
+    <div className='flex item-center justify-center h-screen'>
+      <Board />
     </div>
   )
 }

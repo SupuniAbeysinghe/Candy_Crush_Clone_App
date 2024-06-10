@@ -1,4 +1,4 @@
-import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, configureStore, createSlice } from "@reduxjs/toolkit";
 
 const initialState : {
   board: string[];
@@ -11,14 +11,18 @@ const candyCrushSlice = createSlice({
   name: "CandyCrush",
   initialState,
   reducers:{
-
-  }
-})
+    updateBoard:(state,action:PayloadAction<string[]>) => {
+      state.board = action.payload;
+  },
+},
+});
 
 export const store = configureStore({
   reducer: {
     candyCruch:candyCrushSlice.reducer,
   },
 });
+
+export const {updateBoard} = candyCrushSlice.actions;
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
